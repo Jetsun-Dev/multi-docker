@@ -3,18 +3,18 @@ services:
     - docker
 
 before_install:
-    - docker build -t jetsundev/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t cloudjack/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run jetsundev/react-test npm test -- --coverage
+    - docker run cloudjack/react-test npm test -- --coverage
 
 after_success:
-    - docker build -t jetsundev/multi-client ./client
-    - docker build -t jetsundev/multi-nginx ./nginx
-    - docker build -t jetsundev/multi-server ./server
-    - docker build -t jetsundev/multi-worker ./worker
+    - docker build -t cloudjack/multi-client ./client
+    - docker build -t cloudjack/multi-nginx ./nginx
+    - docker build -t cloudjack/multi-server ./server
+    - docker build -t cloudjack/multi-worker ./worker
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker push jetsundev/multi-client
-    - docker push jetsundev/multi-nginx
-    - docker push jetsundev/multi-server
-    - docker push jetsundev/multi-worker
+    - docker push cloudjack/multi-client
+    - docker push cloudjack/multi-nginx
+    - docker push cloudjack/multi-server
+    - docker push cloudjack/multi-worker
